@@ -56,6 +56,14 @@ func GetList(yamlFil string) (list map[string]provMap, err error) {
 	return list, nil
 }
 
+func FindToken(app string, list map[string]provMap) (string, bool){
+	appVal, ok:= list[app]
+	if !ok {return "", false}
+	
+	token, _ := appVal["token"]
+
+	return token, true
+}
 
 func PrintList(list map[string]provMap) {
 
