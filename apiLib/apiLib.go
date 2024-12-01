@@ -19,7 +19,7 @@ func VerifyCmd(cmdStr string) (bool) {
 
 func VerifyApp(appStr string) (bool) {
 
-    appList := []string{"namcheap", "cloudflare", "nchsb", "*", "all"}
+    appList := []string{"namcheap", "cloudflare", "nchsbox", "*", "all"}
     for i:=0; i< len(appList); i++ {
         if appStr == appList[i] {
             return true
@@ -48,7 +48,7 @@ func GetList(yamlFil string) (list map[string]provMap, err error) {
 	ldat, err := os.ReadFile(yamlFil)
 	if err != nil {return list, fmt.Errorf("Read List: %v", err)}
 
-	fmt.Printf("dbg -- %s\n", ldat)
+//	fmt.Printf("dbg -- %s\n", ldat)
 
 	err = yaml.Unmarshal(ldat,&list)
 	if err != nil {return list, fmt.Errorf("UnMarshal: %v", err)}
