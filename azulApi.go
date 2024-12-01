@@ -58,15 +58,14 @@ func main() {
         appStr = appval.(string)
     }
 
-    valStr := ""
+    valStr := "list"
     val, vok := flagMap["val"]
     if vok {
         if val.(string) == "none" {log.Fatalf("error -- no yaml file provided!\n")}
         valStr = val.(string)
     }
 
-	valFilnam :=""
-    if vok {valFilnam = "yaml/" + valStr + ".yaml"}
+    valFilnam := "yaml/" + valStr + ".yaml"
 
 	if ok:= apiLib.VerifyCmd(cmdStr); !ok {log.Fatalf("error -- invalid command: %s\n", cmdStr)}
 	if ok:= apiLib.VerifyApp(appStr); !ok {log.Fatalf("error -- invalid app: %s\n", appStr)}
@@ -74,13 +73,14 @@ func main() {
     if dbg {
         fmt.Printf("cmd: %s\n", cmdStr)
         fmt.Printf("app: %s\n", appStr)
-        if vok {
-			fmt.Printf("val: %s\n", valFilnam)
-		} else {
-			fmt.Printf("no valFilnam\n")
-		}
+		fmt.Printf("val: %s\n", valFilnam)
+//			fmt.Printf("no valFilnam\n")
     }
 
+	list, err := apiLib.GetList(valFilnam)
+	if err != nil {log.Fatalf("error -- GetList: %v\n", err)}
 
+	apiLib.PrintList(list)
 	fmt.Println("*** api success ***")
 }
+
